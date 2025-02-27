@@ -8,9 +8,9 @@ $currentTime = time();
 // 最後のリクエストタイムスタンプを取得
 $lastRequestTime = $_SESSION['last_request_time'] ?? 0;
 
-// 10秒以内のリクエストは拒否
-if ($currentTime - $lastRequestTime < 10) {
-    echo json_encode(["error" => "10秒以内のリクエストは受け付けられません"]);
+// 3秒以内の��クエストは拒否
+if ($currentTime - $lastRequestTime < 3) {
+    echo json_encode(["error" => "3秒以内のリクエストは受け付けられません"]);
     exit;
 }
 
