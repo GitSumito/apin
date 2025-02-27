@@ -115,7 +115,7 @@
         <label>リクエストボディ (JSON):</label>
         <textarea id="body"></textarea><br>
 
-        <button type="submit">送信</button>
+        <button type="submit" id="submitButton">送信</button>
     </form>
 
     <div class="container">
@@ -139,6 +139,10 @@
 
             document.getElementById('request').textContent = JSON.stringify({ url, method, body: body ? JSON.parse(body) : {} }, null, 2);
 
+            const submitButton = document.getElementById('submitButton');
+            submitButton.disabled = true;
+            submitButton.style.backgroundColor = '#ccc';
+
             try {
                 const response = await fetch('request.php', {
                     method: 'POST',
@@ -150,6 +154,11 @@
             } catch (error) {
                 document.getElementById('response').textContent = 'エラー: ' + error;
             }
+
+            setTimeout(() => {
+                submitButton.disabled = false;
+                submitButton.style.backgroundColor = '#4CAF50';
+            }, 10000);
         });
 
         document.getElementById('body').addEventListener('focus', function () {

@@ -1,5 +1,21 @@
 <?php
+session_start();
 header("Content-Type: application/json");
+
+// 現在のタイムスタンプ
+$currentTime = time();
+
+// 最後のリクエストタイムスタンプを取得
+$lastRequestTime = $_SESSION['last_request_time'] ?? 0;
+
+// 10秒以内のリクエストは拒否
+if ($currentTime - $lastRequestTime < 10) {
+    echo json_encode(["error" => "10秒以内のリクエストは受け付けられません"]);
+    exit;
+}
+
+// 現在のタイムスタンプを保存
+$_SESSION['last_request_time'] = $currentTime;
 
 // JSONデータの取得
 $requestData = json_decode(file_get_contents("php://input"), true);
