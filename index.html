@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APIレスポンス整形ツール</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            font-family: monospace;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>APIレスポンス整形ツール</h2>
+    <form id="apiForm">
+        <label>エンドポイントURL:</label>
+        <input type="text" id="url" required style="width: 100%;"><br><br>
+
+        <label>メソッド:</label>
+        <select id="method">
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+            <option value="PUT">PUT</option>
+            <option value="DELETE">DELETE</option>
+        </select><br><br>
+
+        <label>リクエストボディ (JSON):</label>
+        <textarea id="body"></textarea><br><br>
+
+        <button type="submit">送信</button>
+    </form>
+
+    <h3>レスポンス:</h3>
+    <pre id="response"></pre>
+
+    <script>
+        document.getElementById('apiForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const url = document.getElementById('url').value;
+            const method = document.getElementById('method').value;
+            let body = document.getElementById('body').value.trim();
+
+            try {
+                const response = await fetch('request.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url, method, body })
+                });
+                const data = await response.json();
+                document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById('response').textContent = 'エラー: ' + error;
+            }
+        });
+    </script>
+</body>
+
+</html>
