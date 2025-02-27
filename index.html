@@ -93,7 +93,7 @@
 
     <form id="apiForm">
         <label>エンドポイントURL:</label>
-        <input type="text" id="url" required><br>
+        <input type="text" id="url" value="https://reqres.in/api/users" required><br>
 
         <label>メソッド:</label>
         <select id="method">
@@ -131,6 +131,14 @@
             } catch (error) {
                 document.getElementById('response').textContent = 'エラー: ' + error;
             }
+        });
+
+        document.getElementById('body').addEventListener('focus', function () {
+            this.value = '';
+        });
+
+        document.getElementById('url').addEventListener('focus', function () {
+            this.value = '';
         });
     </script>
 </body>
