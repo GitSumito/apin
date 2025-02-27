@@ -9,27 +9,91 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            background-color: #f9f9f9;
         }
 
-        textarea {
+        textarea, input[type="text"], select {
             width: 100%;
-            height: 100px;
-            font-family: monospace;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
         }
 
         pre {
             background: #f4f4f4;
             padding: 10px;
             border-radius: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2, h3 {
+            color: #333;
+        }
+
+        details {
+            margin-bottom: 20px;
         }
     </style>
 </head>
 
 <body>
     <h2>APIレスポンス整形ツール</h2>
+
+    <details>
+        <summary>使用例</summary>
+        <h4>GETリクエスト例:</h4>
+        <code>https://reqres.in/api/users</code>
+
+        <h4>POSTリクエスト例:</h4>
+        <p>URL: <code>https://reqres.in/api/users</code></p>
+        <pre>リクエストボディ:
+{
+    "data": {
+        "id": 3,
+        "name": "true red",
+        "year": 2002,
+        "pantone_value": "19-1664"
+    }
+}</pre>
+
+        <h4>PUTリクエスト例:</h4>
+        <p>URL: <code>https://reqres.in/api/users/2</code></p>
+        <pre>リクエストボディ:
+{
+    "name": "Tsukada Junto",
+    "job": "Engineering Manager"
+}</pre>
+
+        <h4>DELETEリクエスト例:</h4>
+        <p>URL: <code>https://reqres.in/api/users/2</code></p>
+    </details>
+
     <form id="apiForm">
         <label>エンドポイントURL:</label>
-        <input type="text" id="url" required style="width: 100%;"><br><br>
+        <input type="text" id="url" required><br>
 
         <label>メソッド:</label>
         <select id="method">
@@ -37,10 +101,10 @@
             <option value="POST">POST</option>
             <option value="PUT">PUT</option>
             <option value="DELETE">DELETE</option>
-        </select><br><br>
+        </select><br>
 
         <label>リクエストボディ (JSON):</label>
-        <textarea id="body"></textarea><br><br>
+        <textarea id="body"></textarea><br>
 
         <button type="submit">送信</button>
     </form>
